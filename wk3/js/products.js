@@ -34,6 +34,13 @@ createApp({
       };
       this.editStatus = '';
     });
+    this.$refs.delProductModal.addEventListener('hidden.bs.modal', (event) => {
+      // console.log(event);
+      this.curProduct = {
+        imagesUrl: []
+      };
+      this.editStatus = '';
+    });
   },
   methods: {
     checkIfLogin() {
@@ -80,7 +87,7 @@ createApp({
     },
     editItem(item) {
       // console.log('edit: ', item, item.id);
-      this.curProduct = {...item};
+      this.curProduct = JSON.parse(JSON.stringify(item));
       this.editStatus = 'edit';
     },
     updateItem() {
