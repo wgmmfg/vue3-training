@@ -53,9 +53,9 @@ createApp({
           window.location='login.html'
         })
     },
-    getProducts() {
+    getProducts(page = 1) {
       this.products = [];
-      axios.get(apiPath+'/admin/products')
+      axios.get(apiPath+'/admin/products?page='+page)
         .then((res) => {
           // console.log(res);
           this.products = res.data.products;
