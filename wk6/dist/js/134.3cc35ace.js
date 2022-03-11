@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwk6"]=self["webpackChunkwk6"]||[]).push([[134],{2134:function(n,u,r){r.r(u),r.d(u,{default:function(){return d}});var t=r(3396);const e=(0,t._)("h2",null,"Admin Product list",-1),c=[e];function i(n,u){return(0,t.wg)(),(0,t.iD)("div",null,c)}var l=r(89);const s={},a=(0,l.Z)(s,[["render",i]]);var d=a}}]);
+//# sourceMappingURL=134.3cc35ace.js.map

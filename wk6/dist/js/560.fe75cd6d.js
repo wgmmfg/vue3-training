@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkwk6"]=self["webpackChunkwk6"]||[]).push([[560],{7560:function(n,u,r){r.r(u),r.d(u,{default:function(){return f}});var e=r(3396);const t=(0,e._)("h2",null,"Coupon",-1),c=[t];function l(n,u){return(0,e.wg)(),(0,e.iD)("div",null,c)}var o=r(89);const s={},a=(0,o.Z)(s,[["render",l]]);var f=a}}]);
+//# sourceMappingURL=560.fe75cd6d.js.map
