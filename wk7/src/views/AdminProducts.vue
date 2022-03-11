@@ -68,10 +68,13 @@
         <Pagination :pages="pagination" @get-products="getProducts"/>
       </div>
     <DelModal :cur-product="curProduct" @deleteItem="deleteItem"/>
+    <ProductModal :item="curProduct" :edit-status="editStatus"
+     @add-images="addImages" @update-item="updateItem"/>
   </div>
 </template>
 
 <script>
+import ProductModal from '@/components/ProductModal.vue';
 import DelModal from '@/components/DelModal.vue';
 import Pagination from '@/components/PaginationItem.vue';
 
@@ -87,6 +90,7 @@ export default {
     };
   },
   components: {
+    ProductModal,
     DelModal,
     Pagination,
   },
@@ -120,17 +124,18 @@ export default {
       this.curProduct.imagesUrl.push('');
     },
     addItem() {
-      // axios.post(apiPath + '/admin/product', {data:this.curProduct})
-      //   .then(res => {
-      //     // console.log(res);
-      //     alert(res.data.message);
-      //     productModal.hide();
-      //     this.getProducts();
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //     alert(error.data.message);
-      //   })
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+      this.$http.post(api, { data: this.curProduct })
+        .then((res) => {
+          // console.log(res);
+          alert(res.data.message);
+          // productModal.hide();
+          this.getProducts();
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.data.message);
+        });
     },
     editItem(item) {
       // console.log('edit: ', item, item.id);
@@ -138,23 +143,24 @@ export default {
       this.editStatus = 'edit';
     },
     updateItem() {
-      // let data = this.curProduct;
-      // if(this.editStatus == 'edit') {
-      //   // console.log(this.curProduct);
-      //   axios.put(`${apiPath}/admin/product/${this.curProduct.id}`, {data})
-      //     .then(res => {
-      //       // console.log(res);
-      //       alert(res.data.message);
-      //       productModal.hide();
-      //       this.getProducts();
-      //     })
-      //     .catch(error => {
-      //       console.log(error);
-      //       alert(error.data.message);
-      //     })
-      // } else {
-      //   this.addItem();
-      // }
+      const data = this.curProduct;
+      if (this.editStatus === 'edit') {
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.curProduct.id}`;
+        console.log(api, data);
+        this.$http.put(api, { data })
+          .then((res) => {
+            // console.log(res);
+            alert(res.data.message);
+            // productModal.hide();
+            this.getProducts();
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error.data.message);
+          });
+      } else {
+        this.addItem();
+      }
     },
     deleteItem() {
       this.editStatus = 'deleting';

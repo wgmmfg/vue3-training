@@ -16,7 +16,7 @@
             <router-link class="nav-link" to="/admin/products">Products</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/order">Orders</router-link>
+            <router-link class="nav-link" to="/admin/orders">Orders</router-link>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
