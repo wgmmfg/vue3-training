@@ -147,10 +147,13 @@
 </template>
 
 <script>
+import Modal from 'bootstrap/js/dist/modal';
+
 export default {
   data() {
     return {
       curProduct: {},
+      modal: {},
     };
   },
   watch: {
@@ -160,11 +163,16 @@ export default {
   },
   mounted() {
     // console.log(this.item, this.curProduct);
+    this.modal = new Modal(this.$refs.productModal);
   },
   props: ['item', 'editStatus'],
   methods: {
+    showModal() {
+      this.modal.show();
+    },
     updateItem() {
       this.$emit('updateItem');
+      this.modal.hide();
     },
     addImages() {
       this.$emit('addImages');

@@ -26,9 +26,10 @@
               </td>
               <td>{{ order.total }}</td>
               <td>
-                <button class="btn btn-outline-secondary"
+                <button class="btn "
+                 :class="{ 'btn-outline-secondary': !order.is_paid, 'btn-success': order.is_paid }"
                  @click="updatePaid(order, !order.is_paid)">
-                  <span v-if="order.is_paid" class="text-success">已付</span>
+                  <span v-if="order.is_paid">已付</span>
                   <span v-else>未付</span>
                 </button>
               </td>

@@ -3,8 +3,7 @@
     <h2>Product list</h2>
     <div class="container-fluid">
         <div class="text-end mt-4">
-          <button class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#productModal" @click="editStatus='add'">
+          <button class="btn btn-primary" @click="showModal('add')">
             建立新的產品
           </button>
         </div>
@@ -42,13 +41,11 @@
               <td>
                 <div class="btn-group">
                   <button type="button" class="btn btn-outline-primary btn-sm"
-                    data-bs-toggle="modal" data-bs-target="#productModal"
-                     @click="editItem(p)">
+                     @click="showModal('edit', p)">
                     編輯
                   </button>
                   <button type="button" class="btn btn-outline-danger btn-sm"
-                    data-bs-toggle="modal" data-bs-target="#delProductModal"
-                    @click="curProduct = p">
+                    @click="showModal('delete', p)">
                     刪除
                   </button>
                 </div>
@@ -67,8 +64,8 @@
         </table>
         <Pagination :pages="pagination" @get-products="getProducts"/>
       </div>
-    <DelModal :cur-item="curProduct" @deleteItem="deleteItem"/>
-    <ProductModal :item="curProduct" :edit-status="editStatus"
+    <DelModal ref="delModal" :cur-item="curProduct" @deleteItem="deleteItem"/>
+    <ProductModal ref="productModal" :item="curProduct" :edit-status="editStatus"
      @add-images="addImages" @update-item="updateItem"/>
   </div>
 </template>
@@ -130,6 +127,7 @@ export default {
           // console.log(res);
           alert(res.data.message);
           // productModal.hide();
+          this.resetData();
           this.getProducts();
         })
         .catch((error) => {
@@ -137,10 +135,30 @@ export default {
           alert(error.data.message);
         });
     },
-    editItem(item) {
-      // console.log('edit: ', item, item.id);
-      this.curProduct = JSON.parse(JSON.stringify(item));
-      this.editStatus = 'edit';
+    showModal(inStatus, item) {
+      // this.curProduct = JSON.parse(JSON.stringify(item));
+      // this.editStatus = 'edit';
+      this.editStatus = inStatus;
+      let modal = {};
+      switch (this.editStatus) {
+        case 'add':
+          this.resetData();
+          modal = this.$refs.productModal;
+          modal.showModal();
+          break;
+        case 'delete':
+          this.curProduct = JSON.parse(JSON.stringify(item));
+          modal = this.$refs.delModal;
+          modal.showModal();
+          break;
+        case 'edit':
+          this.curProduct = JSON.parse(JSON.stringify(item));
+          modal = this.$refs.productModal;
+          modal.showModal();
+          break;
+        default:
+          break;
+      }
     },
     updateItem() {
       const data = this.curProduct;
@@ -152,6 +170,7 @@ export default {
             // console.log(res);
             alert(res.data.message);
             // productModal.hide();
+            this.resetData();
             this.getProducts();
           })
           .catch((error) => {
