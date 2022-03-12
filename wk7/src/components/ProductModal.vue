@@ -19,8 +19,15 @@
               <div class="mb-3">
                 <!-- eslint-disable-next-line -->
                 <label for="imageUrl" class="form-label visually-hidden">輸入圖片網址</label>
-                <input type="text" id="imageUrl" class="form-control" v-model="curProduct.imageUrl"
-                        placeholder="請輸入圖片連結">
+                <input type="text" id="imageUrl" class="form-control"
+                 v-model="curProduct.imageUrl"
+                 placeholder="請輸入圖片連結">
+                 <div class="py-1">
+                  <!-- eslint-disable-next-line -->
+                  <label for="upload" class="form-label">或 上傳圖片</label>
+                  <input id="upload" type="file" name="file-to-upload"
+                   ref="uploadMain" @change="uploadImg" class="form-control">
+                 </div>
               </div>
               <img class="img-fluid" :src="curProduct.imageUrl" alt="">
             </div>
@@ -152,7 +159,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.item, this.curProduct);
+    // console.log(this.item, this.curProduct);
   },
   props: ['item', 'editStatus'],
   methods: {
@@ -161,6 +168,22 @@ export default {
     },
     addImages() {
       this.$emit('addImages');
+    },
+    uploadImg() {
+      const imgFile = this.$refs.uploadMain.files[0];
+      const formdata = new FormData();
+      formdata.append('file-to-update', imgFile);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+      this.$http.post(api, formdata)
+        .then((res) => {
+          // console.log(res);
+          this.curProduct.imageUrl = res.data.imageUrl;
+          this.$refs.uploadMain.value = '';
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$refs.uploadMain.value = '';
+        });
     },
   },
 };

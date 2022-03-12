@@ -17,7 +17,7 @@ export default {
     this.$http.defaults.headers.common.Authorization = token;
     this.$http.post(`${process.env.VUE_APP_API}api/user/check`)
       .then((res) => {
-        console.log('adminview:', res);
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
