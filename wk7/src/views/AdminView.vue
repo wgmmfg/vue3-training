@@ -17,12 +17,12 @@ export default {
     this.$http.defaults.headers.common.Authorization = token;
     this.$http.post(`${process.env.VUE_APP_API}api/user/check`)
       .then((res) => {
-        console.log(res);
+        console.log('adminview:', res);
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         document.cookie = `token=;expires=${new Date()}; path=/`;
-        alert(error.data.message);
+        // alert(error.data.message);
         this.$router.push('/');
       });
   },

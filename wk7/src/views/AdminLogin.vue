@@ -37,7 +37,6 @@
           </form>
         </div>
       </div>
-      <!-- <p class="mt-5 mb-3 text-muted">&copy; 2021~∞ - 六角學院</p> -->
     </div>
   </div>
 </template>
@@ -61,7 +60,7 @@ export default {
       this.$http
         .post(loginapi, this.user)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           const { token, expired } = res.data;
           document.cookie = `token=${token};expires=${new Date(expired)}; path=/`;
           this.$router.push('/admin/products');

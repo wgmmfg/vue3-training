@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Product list</h2>
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-end mt-4">
           <button class="btn btn-primary" data-bs-toggle="modal"
             data-bs-target="#productModal" @click="editStatus='add'">
@@ -67,7 +67,7 @@
         </table>
         <Pagination :pages="pagination" @get-products="getProducts"/>
       </div>
-    <DelModal :cur-product="curProduct" @deleteItem="deleteItem"/>
+    <DelModal :cur-item="curProduct" @deleteItem="deleteItem"/>
     <ProductModal :item="curProduct" :edit-status="editStatus"
      @add-images="addImages" @update-item="updateItem"/>
   </div>
